@@ -1,0 +1,48 @@
+use std::{fs, collections::HashMap};
+
+fn main() {
+    let file: Vec<_> = fs::read_to_string("./input.txt")
+        .unwrap()
+        .lines()
+        .map(String::from)
+        .collect();
+    let colours_max_values: HashMap<&str, i32> = HashMap::from([
+        ("red", 12),
+        ("blue", 13),
+        ("green", 14)
+    ]);
+
+    for line in file {
+        let s:Vec<_> = line
+            .split(&[';', ',', ':'][..])
+            .map(|x| x.to_string())
+            .collect();
+
+
+        for (key, value) in colours_max_values.iter() {
+            let total = get_colour(&s, key);
+            if total > *value as u32{
+                break;
+            }
+        } 
+    }
+}
+
+
+fn get_colour(games: &Vec<String>, colour: &str) -> u32 {
+    let colour_nums: String = games.iter()
+        .filter(|x| x.contains(colour))
+        .map(|x| 
+            x.chars()
+                .filter(|x| x.is_ascii_digit())
+                .collect::<String>()
+        )
+        .collect::<String>();
+
+    let mut total = 0;
+    for char in colour_nums.chars() {
+        total = char.to_digit(10).unwrap() + total;
+    }
+
+    return total;
+}
