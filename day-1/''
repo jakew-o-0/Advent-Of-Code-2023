@@ -1,0 +1,96 @@
+use std::{fs, str::FromStr, i32, collections::HashMap};
+
+#[derive(Debug)]
+struct MinMaxNum {
+    idx: i32,
+    num: String,
+}
+
+fn main() {
+    let file:Vec<_> = fs::read_to_string("/home/jake/code/Advent-Of-Code-2023/day1/input.txt")
+        .unwrap()
+        .lines()
+        .map(String::from)
+        .collect();
+
+    let mut final_digits: Vec<String> = Vec::new();
+
+    for line in file {
+
+        let mut alph_nums:Vec<_> = Vec::new(); 
+        let nums: [&str; 10] = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"];
+
+        for num in nums {
+            let v: &Vec<_> = &line.match_indices(num).collect();
+            for (i,j) in v.iter() {
+                alph_nums.push((i.to_owned(), j.to_owned()));
+            }
+        }
+
+        let mut min_str: MinMaxNum = MinMaxNum{idx: 100, num: String::from("")};
+        let mut max_str: MinMaxNum = MinMaxNum{idx: 0, num: String::from("")};
+
+        for (j,k) in alph_nums.iter() {
+            let idx = i32::from(*j as i8);
+            if idx <= min_str.idx {
+                min_str.num.clear();
+                min_str.num.push_str(k);
+                min_str.idx = idx;
+            }
+
+            if idx >= max_str.idx {
+                max_str.num.clear();
+                max_str.num.push_str(k);
+                max_str.idx = idx;
+            }
+        }
+
+        //println!("min: {:?}\nmax: {:?}\n", min_str, max_str);
+
+        let numerical_digits: &Vec<_> = &line
+            .chars()
+            .filter(|n| n.is_numeric())
+            .collect();
+
+        for char in line.chars() {
+            println!("char: {}", char);
+            println!("is numeric: {}", char.is_ascii_digit())
+        }
+
+
+        /*
+        for (j,k) in numerical_digits.iter() {
+            let idx = i32::from(*j as i8);
+            if idx <= min_str.idx {
+                min_str.num.clear();
+                min_str.num.push(*k);
+                min_str.idx = idx;
+            }
+
+            if idx >= max_str.idx {
+                max_str.num.clear();
+                min_str.num.push(*k);
+                max_str.idx = idx;
+            }
+            
+        }
+        */
+
+
+
+
+        /*
+        final_digits.push(format!(
+            "{}{}", 
+            digits[0], 
+            digits[digits.len() - 1]
+        ));
+        */
+        
+        for (i, char) in line.chars().enumerate() {
+            
+        }
+
+
+    }
+}
