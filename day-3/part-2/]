@@ -1,0 +1,79 @@
+use std::{fs, io::BufRead};
+
+fn main() {
+    let file: Vec<_> = fs::read_to_string("../input.txt")
+        .unwrap()
+        .lines()
+        .map(String::from)
+        .collect();
+    println!("{:?}", file);
+
+    for (i, line) in file.iter().enumerate() {
+        for  (j, ch) in line.chars().enumerate() {
+            if ch == '*' {
+                
+
+            }
+        }
+    }
+}
+
+fn find_nums(file: &Vec<String>, line: &str, i: &usize, j: &usize) -> u32 {
+    let is_digit = |x: &usize, y: &usize| -> bool {
+        file[*y].as_bytes()[*x].is_ascii_digit()
+    };
+
+
+    if *j > 0 && is_digit(j, i){
+        if  {
+            // find num
+        }
+    }
+
+    if *j < line.len() - 1 {
+        if  {
+            // find num
+        }
+    }
+
+    if *i > 0 {
+        if  {
+            // find num
+        }
+    }
+
+    if *i < file[*i].len() - 1 {
+        if is_digit(j, i) {
+            // find num
+        }
+    }
+
+    return 0;
+}
+
+
+fn get_num(file: &Vec<String>, i: &usize, j: &usize) -> u32 {
+    let mut num_str: String = String::new();
+    let mut idx = 0;
+
+    loop {
+        let next = file[*i].as_bytes()[*j + idx];
+        let prev = file[*i].as_bytes()[*j - idx];
+
+        if next.is_ascii_digit() {
+            num_str.push(next as char);
+        } else if prev.is_ascii_digit() {
+            num_str.push(prev as char);
+            continue;
+        } else {
+            break
+        }
+
+        idx = idx + 1;
+    }
+
+
+
+    return num_str.parse::<u32>().unwrap();
+}
+
