@@ -9,11 +9,27 @@ fn main() {
         .filter(|x| !x.contains("Card"))
         .collect();
 
-    for i in (0..nums.len()).step_by(2) {
-        let winning_nums = nums
-            .iter()
-            .chars()
-            .filter(|x| nums[i].as_bytes().contains(x))
+    let mut total = 0;
+
+    for i in (0..nums.len() - 1).step_by(2) {
+        let check_nums: Vec<_> = nums[i]
+            .split(' ')
             .collect();
+
+        let to_be_checked: Vec<_> = nums[i+1]
+            .split(' ')
+            .collect();
+        
+        let winning_nums: Vec<_> = to_be_checked
+            .iter()
+            .filter(|x| check_nums.contains(*x))
+            .filter(|x| !x.is_empty())
+            .collect();
+
+        if winning_nums.is_empty() {
+            continue;
+        }
+        total = total + i32::pow(2, winning_nums.len() as u32 - 1);
     }
+    println!("total: {}", total);
 }

@@ -7,7 +7,7 @@ struct MinMaxNum {
 }
 
 fn main() {
-    let file:Vec<_> = fs::read_to_string("/home/jake/code/Advent-Of-Code-2023/day1/input.txt")
+    let file:Vec<_> = fs::read_to_string("./input.txt")
         .unwrap()
         .lines()
         .map(String::from)
